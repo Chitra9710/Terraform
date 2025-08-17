@@ -11,3 +11,15 @@ variable "type" {
     default = "t2.micro"
   
 }
+ 
+ variable "Vpc_CIDR" {
+  type=string
+  default="10.0.0.0/16"
+
+ }
+
+ variable "subnet_CIDR" {
+  type=string
+  default="10.0.0.0/24"
+
+ }

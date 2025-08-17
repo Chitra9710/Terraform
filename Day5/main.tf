@@ -1,25 +1,17 @@
 # Creation of VPC
 resource "aws_vpc" "name" {
-    cidr_block = "10.0.0.0/16"
+    cidr_block = var.Vpc_CIDR
     tags = {
-        Name = "dev-vpc"
+        Name = "sri-vpc"
     }
   
 }
 # Creation of subnets
 resource "aws_subnet" "name" {
     vpc_id = aws_vpc.name.id
-    cidr_block = "10.0.0.0/24"
+    cidr_block = var.subnet_CIDR
     tags = {
-      Name = "dev-subnet"
-    }
-  
-}
-resource "aws_subnet" "name2" {
-  vpc_id = aws_vpc.name.id
-    cidr_block = "10.0.1.0/24"
-    tags = {
-      Name = "dev-subnet"
+      Name = "sri-subnet"
     }
   
 }
@@ -27,7 +19,7 @@ resource "aws_subnet" "name2" {
 resource "aws_internet_gateway" "name" {
   vpc_id = aws_vpc.name.id
   tags = {
-    Name = "dev-sg"
+    Name = "sri-sg"
   }
 }
 
@@ -51,7 +43,7 @@ resource "aws_security_group" "allow_tls" {
   name        = "allow_tls"
   vpc_id      = aws_vpc.name.id
   tags = {
-    Name = "dev_sg"
+    Name = "sri_sg"
   }
  ingress {
     description      = "TLS from VPC"
@@ -92,4 +84,10 @@ resource "aws_instance" "name" {
     subnet_id = aws_subnet.name.id
     vpc_security_group_ids = [aws_security_group.allow_tls.id]
   
+}
+
+#Creation of NAT Gateway
+resource "aws_nat_gateway" "example" {
+  connectivity_type = "private"
+  subnet_id         = aws_subnet.name.id
 }

@@ -12,3 +12,5 @@ resource "aws_internet_gateway" "name" {
   vpc_id = aws_vpc.name.id
 
 }
+
+#command terraform apply --target=aws_s3_bucket.name

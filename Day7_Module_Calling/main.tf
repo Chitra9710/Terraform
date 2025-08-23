@@ -8,3 +8,7 @@ module "test" {
 type = "t2.micro"
 tags = "testec2"
 }
+
+resource "aws_instance+" "name" {
+  ami=var
+}

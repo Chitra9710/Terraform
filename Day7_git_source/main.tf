@@ -1,0 +1,3 @@
+module "git" {
+  source = "value"
+}
